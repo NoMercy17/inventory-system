@@ -1,3 +1,0 @@
-C:/Users/hab60/Documents/C++_Projects/inventory-system/out/build/x64-debug/CMakeFiles/inventory-system.dir
-C:/Users/hab60/Documents/C++_Projects/inventory-system/out/build/x64-debug/CMakeFiles/edit_cache.dir
-C:/Users/hab60/Documents/C++_Projects/inventory-system/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
