@@ -1,0 +1,64 @@
+# ============================================
+# Visual Studio / Visual Studio Code
+# ============================================
+.vs/
+*.vcxproj.user
+*.suo
+*.user
+*.userosscache
+*.sln.ide
+.vscode/
+
+# ============================================
+# CMake & Build Directories
+# ============================================
+build/
+out/
+bin/
+lib/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CMakeUserPresets.json
+compile_commands.json
+CTestTestfile.cmake
+Makefile
+
+# ============================================
+# Ninja & Build Tools
+# ============================================
+.ninja_deps
+.ninja_log
+
+# ============================================
+# Compiled Binaries & Object Files
+# ============================================
+*.exe
+*.dll
+*.so
+*.dylib
+*.obj
+*.o
+*.a
+*.lib
+*.pdb
+*.ilk
+*.idb
+*.exp
+
+# ============================================
+# IDE Indexing, Intellisense & Caches
+# ============================================
+*.ipch
+*.VC.db
+*.VC.opendb
+*.sqlite
+*.slnx.sqlite
+
+# ============================================
+# Operating System files
+# ============================================
+Thumbs.db
+.DS_Store
+desktop.ini
+
