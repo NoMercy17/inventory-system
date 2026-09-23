@@ -10,8 +10,8 @@ public:
     std::string describe() const override;
 	ItemType type() const override { return ItemType::Potion; }
 
-	double getHealingAmount() const { return healing_; }
+	double getHealingAmount() const { return m_healing_; }
 
 protected:
-	double healing_;
+	double m_healing_;
 };

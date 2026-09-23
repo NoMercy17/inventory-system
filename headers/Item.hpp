@@ -1,11 +1,11 @@
-#ifndef ITEM_HPP
-#define ITEM_HPP
+#pragma once
 #include "Enums.hpp"
 #include <string>
 
 class Character; // Forward declaration
 
-class Item {
+class Item 
+{
 public:
 	Item(std::string name, Rarity rarity, double weight, int price);
 	virtual ~Item() = default; // Virtual destructor for proper cleanup of derived classes
@@ -13,17 +13,15 @@ public:
 	virtual std::string describe() const = 0;
 	virtual ItemType type() const = 0;
 
-	const std::string &getNameRef() const { return name_; };
-	Rarity getRarity() const { return rarity_; };
-	double getWeight() const { return weight_; };
-	int getPrice() const { return price_; };
+	const std::string &getNameRef() const { return m_name_; }
+	Rarity getRarity() const { return m_rarity_; }
+	double getWeight() const { return m_weight_; }
+	int getPrice() const { return m_price_; }
 
 protected:
-	std::string name_;
-	Rarity rarity_;
-	double weight_;
-	int price_;
+	std::string m_name_;
+	Rarity m_rarity_;
+	double m_weight_;
+	int m_price_;
 };
 
-
-#endif

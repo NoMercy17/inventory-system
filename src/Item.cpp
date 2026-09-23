@@ -1,5 +1,5 @@
 #include "Item.hpp"
 
 Item::Item(std::string name, Rarity rarity, double weight, int price)
-	: name_(std::move(name)), rarity_(rarity), weight_(weight), price_(price) {}
-
+	: m_name_(std::move(name)), m_rarity_(rarity), m_weight_(weight), m_price_(price) 
+{}

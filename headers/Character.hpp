@@ -3,12 +3,13 @@
 
 
 // minimal for now
-class Character {
+class Character 
+{
 public:
-	explicit Character(std::string name) : name_(std::move(name)) {}
-	const std::string& getName() const { return name_; }
+	explicit Character(std::string name) : m_name_(std::move(name)) {}
+	const std::string& getName() const { return m_name_; }
 
 private:
-	std::string name_;
+	std::string m_name_;
 
 };

@@ -18,12 +18,14 @@ int main()
 	items.push_back(new Potion("Potion of Rejuvenation", Rarity::Rare, 0.5, 50, 20.0));
 	items.push_back(new Weapon("BattleCry Axe", Rarity::Epic, 6.0, 200, 15.0));
 
-	for (const Item* item : items) {
+	for (const Item* item : items) 
+	{
 		std::cout << item->describe() << std::endl;
 	}
 
 	// free the memory since raw pointers
-	for(const Item* item : items) {
+	for(const Item* item : items) 
+	{
 		delete item;
 	}
 

@@ -1,7 +1,9 @@
 #pragma once
 #include "Item.hpp"
 
-class Armor : public Item {
+class Armor : public Item 
+{
+
 public:
 	Armor(std::string name, Rarity rarity, double weight, int price, double defense);
 
@@ -9,8 +11,8 @@ public:
     std::string describe() const override;
 	ItemType type() const override { return ItemType::Armor; }
 
-	double getDefense() const { return defense_; }
+	double getDefense() const { return m_defense_; }
 
 protected:
-	double defense_;
+	double m_defense_;
 };
