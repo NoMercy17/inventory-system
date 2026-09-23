@@ -2,7 +2,6 @@
 #include <string>
 
 
-// minimal for now
 class Character 
 {
 public:
