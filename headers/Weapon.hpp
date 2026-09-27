@@ -7,6 +7,7 @@ public:
 	Weapon(std::string name, Rarity rarity, double weight, int price, double damage = 0.0, Enchantment enchantment = Enchantment::None);
 
 	void use(Character& target) override;
+	void equip(Character& wielder) override;
 	std::string describe() const override;
 	ItemType type() const override { return ItemType::Weapon; }
 	bool operator==(const Item& other) const override;

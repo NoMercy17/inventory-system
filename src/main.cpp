@@ -10,43 +10,67 @@
 
 int main() 
 {
-	Character hero("Aldric", 25, 100.0, 10.0, 5.0);
+
+	// --- Poison potion verification ---
+    std::cout << "=== Poison Potion Test ===" << std::endl;
+    Character tester("Test Dummy", 20, 50.0, 10.0, 5.0);
+    tester.printStats();
+
+    Potion poison("Potion of Corruption", Rarity::Rare, 0.5, 80, 10.0, Enchantment::Poison);
+    poison.equip(tester);
+    tester.printStats();
+    std::cout << std::endl;
+
+
+	Character hero("Heroic Knight", 20, 100.0, 10.0, 5.0);
 	std::cout << "=== Initial Stats ===" << std::endl;
 	hero.printStats();
 	std::cout << std::endl;
 
-	// --- Items ---
-	std::vector<Item*> items;
+	// Heroic Knight's items
+	std::vector<Item*> hero_items;
 
-	Item* sword = new Weapon("Iron Sword", Rarity::Common, 5.0, 100, 10.0);
+	Item* sword = new Weapon("Iron Sword", Rarity::Common, 5.0, 100, 100.0);
 	Item* shield = new Armor("Shield of Tinos", Rarity::Uncommon, 7.0, 150, 5.0, Enchantment::Holy);
 	Item* enchantedBow = new Weapon("Sunpiercer", Rarity::Epic, 3.5, 350, 30.0, Enchantment::Fire);
 
-	items.push_back(sword);
-	items.push_back(shield);
-	items.push_back(enchantedBow);
-	items.push_back(new Potion("Potion of Rejuvenation", Rarity::Rare, 0.5, 50, 20.0, Enchantment::Holy));
-	items.push_back(new Weapon("BattleCry Axe", Rarity::Epic, 6.0, 200, 15.0, Enchantment::Lightning));
+	hero_items.push_back(sword);
+	hero_items.push_back(shield);
+	hero_items.push_back(enchantedBow);
+	hero_items.push_back(new Potion("Potion of Rejuvenation", Rarity::Rare, 0.5, 50, 20.0, Enchantment::Holy));
+	hero_items.push_back(new Weapon("BattleCry Axe", Rarity::Epic, 6.0, 200, 15.0, Enchantment::Lightning));
 
 	// --- Print all items ---
 	std::cout << "=== Inventory ===" << std::endl;
-	for (const Item* item : items) 
+	for (const Item* item : hero_items) 
 	{
 		std::cout << *item << std::endl;
 	}
 	std::cout << std::endl;
 
 	// --- Use items on hero ---
-	std::cout << "=== Using Items ===" << std::endl;
-	for (Item* item : items)
+	std::cout << "=== Using Items on himself ===" << std::endl;
+	for (Item* item : hero_items)
 	{
-		item->use(hero);
+		item->equip(hero);
 	}
 	std::cout << std::endl;
 
 	std::cout << "=== Stats After Items ===" << std::endl;
-	hero.printStats();
-	std::cout << std::endl;
+    hero.printStats();
+    std::cout << "Currently equipped weapon: " << hero.getEquippedWeapon()->describe() << std::endl;
+    std::cout << "Currently equipped armor: "  << hero.getEquippedArmor()->describe()  << std::endl;
+    std::cout << std::endl;
+
+    // --- Prove the swap doesn't stack ---
+    std::cout << "=== Swapping back to Iron Sword ===" << std::endl;
+    sword->equip(hero);
+    std::cout << std::endl;
+
+    std::cout << "=== Stats After Swap ===" << std::endl;
+    hero.printStats();
+    std::cout << "Currently equipped weapon: " << hero.getEquippedWeapon()->describe() << std::endl;
+    std::cout << std::endl;
 
 	// --- Equality check ---
 	Weapon flameblade("Flameblade", Rarity::Rare, 4.0, 250, 20.0, Enchantment::Fire);
@@ -57,6 +81,7 @@ int main()
 	std::cout << "Diff enchantment: " << std::boolalpha << (flameblade == frostblade) << std::endl;
 	std::cout << std::endl;
 
+
 	// --- Potion mixing ---
 	Potion healA("Healing Elixir", Rarity::Common, 0.5, 25, 15.0, Enchantment::Holy);
 	Potion healB("Healing Elixir", Rarity::Uncommon, 0.5, 40, 25.0, Enchantment::Poison);
@@ -65,12 +90,13 @@ int main()
 	std::cout << mixed << std::endl;
 	std::cout << std::endl;
 
+
 	// --- Cleanup ---
-	for (const Item* item : items) 
+	for (const Item* item : hero_items) 
 	{
 		delete item;
 	}
-	items.clear();
+	hero_items.clear();
 
 	return 0;
 }

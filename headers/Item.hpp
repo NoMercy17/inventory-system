@@ -11,6 +11,7 @@ public:
 	Item(std::string name, Rarity rarity, double weight, int price);
 	virtual ~Item() = default;
 	virtual void use(Character& target) = 0;
+	virtual void equip(Character& wielder) = 0;
 	virtual std::string describe() const = 0;
 	virtual ItemType type() const = 0;
 

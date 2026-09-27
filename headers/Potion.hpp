@@ -7,6 +7,7 @@ public:
 	Potion(std::string name, Rarity rarity, double weight, int price, double healing, Enchantment enchantment = Enchantment::None);
 
 	void use(Character& target) override;
+	void equip(Character& wielder) override;
 	std::string describe() const override;
 	ItemType type() const override { return ItemType::Potion; }
 	bool operator==(const Item& other) const override;

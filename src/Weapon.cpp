@@ -10,23 +10,6 @@ Weapon::Weapon(std::string name, Rarity rarity, double weight, int price, const 
 {}
 
 
-void Weapon::use(Character& target)
-{
-	BuffStats buff = getEnchantmentBuff(m_enchantment_);
-	double totalDamage = m_damage_ + buff.attackBonus;
-
-	std::cout << "Using weapon " << m_name_ << " on " << target.getName()
-			  << ", dealing " << totalDamage << " damage";
-
-	if (m_enchantment_ != Enchantment::None)
-	{
-		std::cout << " [" << enchantmentToString(m_enchantment_) << " enchantment]";
-	}
-	std::cout << std::endl;
-
-	target.takeDamage(totalDamage);
-}
-
 std::string Weapon::describe() const 
 {
 	std::ostringstream oss;
@@ -49,4 +32,39 @@ bool Weapon::operator==(const Item& other) const
 	return otherWeapon
 		&& m_damage_ == otherWeapon->m_damage_
 		&& m_enchantment_ == otherWeapon->m_enchantment_;
+}
+
+void Weapon::use(Character& target)
+{
+	BuffStats buff = getEnchantmentBuff(m_enchantment_);
+	double totalDamage = m_damage_ + buff.attackBonus;
+
+	std::cout << "Using weapon " << m_name_ << " on " << target.getName()
+			  << ", dealing " << totalDamage << " damage";
+
+	if (m_enchantment_ != Enchantment::None)
+	{
+		std::cout << " [" << enchantmentToString(m_enchantment_) << " enchantment]";
+	}
+	std::cout << std::endl;
+
+	target.takeDamage(totalDamage);
+}
+
+
+void Weapon::equip(Character& wielder)
+{
+	BuffStats buff = getEnchantmentBuff(m_enchantment_);
+
+	std::cout << wielder.getName() << " equips " << m_name_;                                                                                                               
+        if (m_enchantment_ != Enchantment::None)                                                                                                                               
+        {                                                                                                                                                                      
+            std::cout << " [" << enchantmentToString(m_enchantment_) << "]";                                                                                                   
+        }                                                                                                                                                                      
+    std::cout << std::endl; 
+
+	wielder.equipWeapon(this);
+	if(buff.healthBonus != 0.0)
+		wielder.buffHealth(buff.healthBonus); // because hp handled as being permanent
+
 }
