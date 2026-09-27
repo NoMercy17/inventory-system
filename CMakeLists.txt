@@ -10,6 +10,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Source files
 set(SOURCES
     src/Armor.cpp
+    src/Character.cpp
     src/Item.cpp
     src/Potion.cpp
     src/Weapon.cpp

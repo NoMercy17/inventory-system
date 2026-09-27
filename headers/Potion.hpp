@@ -4,7 +4,7 @@
 class Potion : public Item 
 {
 public:
-	Potion(std::string name, Rarity rarity, double weight, int price, double healing);
+	Potion(std::string name, Rarity rarity, double weight, int price, double healing, Enchantment enchantment = Enchantment::None);
 
 	void use(Character& target) override;
 	std::string describe() const override;
@@ -14,8 +14,9 @@ public:
 	Potion operator+(const Potion& other) const;
 
 	double getHealingAmount() const { return m_healing_; }
+	Enchantment getEnchantment() const { return m_enchantment_; }
 
 protected:
 	double m_healing_;
+	Enchantment m_enchantment_;
 };
-

@@ -4,12 +4,7 @@
 class Weapon : public Item 
 {
 public:
-	Weapon(std::string name, Rarity rarity, double weight, int price, double damage, const char* enchantment = nullptr);
-	~Weapon() override;
-	Weapon(const Weapon& other);
-	Weapon& operator=(const Weapon& other);
-	Weapon(Weapon&& other) noexcept;
-	Weapon& operator=(Weapon&& other) noexcept;
+	Weapon(std::string name, Rarity rarity, double weight, int price, double damage = 0.0, Enchantment enchantment = Enchantment::None);
 
 	void use(Character& target) override;
 	std::string describe() const override;
@@ -17,11 +12,9 @@ public:
 	bool operator==(const Item& other) const override;
 
 	double getDamage() const { return m_damage_; }
-	const char* getEnchantment() const { return m_enchantment_; }
-	void setEnchantment(const char* enchantment);
+	Enchantment getEnchantment() const { return m_enchantment_; }
 
 protected:
 	double m_damage_;
-	char* m_enchantment_;
+	Enchantment m_enchantment_;
 };
-
