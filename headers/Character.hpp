@@ -23,8 +23,6 @@ public:
 	const std::array<Weapon*, MAX_NR_WEAPONS>& getEquippedWeapons() const;
 	Armor* getEquippedArmor() const { return m_equippedArmor_; }
 
-
-
 	void heal(double amount);
 	void takeDamage(double amount);
 
@@ -32,13 +30,11 @@ public:
 	void buffDefense(double amount); // permanently raises the Base stat
 	void buffHealth(double amount); // permanently raises the Base stat
 
-
 	bool equipArmor(Armor* armor);
 	bool equipWeapon(Weapon* weapon);
 	void unequipArmor();
 	void unequipWeapon(Weapon* weapon);
 	void unequipAllWeapons();
-
 
 	void printStats() const;
 	
@@ -48,7 +44,7 @@ public:
 	double m_health_;
 	double m_baseAttack_;
 	double m_baseDefense_;
-	std::array<Weapon*, MAX_NR_WEAPONS> m_equippedWeapons_ {nullptr, nullptr};
 
+	std::array<Weapon*, MAX_NR_WEAPONS> m_equippedWeapons_ {nullptr, nullptr};
 	Armor* m_equippedArmor_ = nullptr;
 };

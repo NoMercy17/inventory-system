@@ -1,0 +1,2 @@
+# Name, speed, health, attack, defense
+Shadow Assassin, 25, 90.0, 12.0, 4.0

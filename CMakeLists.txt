@@ -11,6 +11,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(SOURCES
     src/Armor.cpp
     src/Character.cpp
+    src/DataLoader.cpp
     src/Item.cpp
     src/Potion.cpp
     src/Weapon.cpp
@@ -21,6 +22,7 @@ set(SOURCES
 set(HEADERS
     headers/Armor.hpp
     headers/Character.hpp
+    headers/DataLoader.hpp
     headers/Enums.hpp
     headers/Item.hpp
     headers/Potion.hpp

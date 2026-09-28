@@ -8,6 +8,7 @@
 #include "Armor.hpp"
 #include "Potion.hpp"
 #include "Character.hpp"
+#include "DataLoader.hpp"
 
 // Drops an item from inventory; if equipped, automatically unequips it first
 void dropItem(Character& character, std::vector<std::unique_ptr<Item>>& inventory, Item* itemToRemove)
@@ -31,27 +32,23 @@ void dropItem(Character& character, std::vector<std::unique_ptr<Item>>& inventor
 
 int main() 
 {
-	Character hero("Heroic Knight", 20, 100.0, 15.0, 5.0);
-	Character villain("Shadow Assassin", 25, 90.0, 12.0, 4.0);
+	// Load characters from single-line files via DataLoader Singleton
+	Character hero = DataLoader::getInstance().loadCharacter("data/hero.txt");
+	Character villain = DataLoader::getInstance().loadCharacter("data/villain.txt");
 
 	std::cout << "=== Initial Characters ===" << std::endl;
 	hero.printStats();
 	villain.printStats();
 	std::cout << std::endl;
 
-	// Inventories - Backpack
 	std::vector<std::unique_ptr<Item>> hero_items;
-	
 	hero_items.push_back(std::make_unique<Weapon>("Iron Sword", Rarity::Common, 5.0, 100, 20.0));
 	hero_items.push_back(std::make_unique<Weapon>("Sunpiercer", Rarity::Epic, 3.5, 350, 30.0, Enchantment::Fire));
 	hero_items.push_back(std::make_unique<Weapon>("BattleCry Axe", Rarity::Epic, 6.0, 200, 25.0, Enchantment::Lightning));
-	
 	hero_items.push_back(std::make_unique<Armor>("Shield of Tinos", Rarity::Uncommon, 7.0, 150, 10.0, Enchantment::Holy));
 	hero_items.push_back(std::make_unique<Armor>("Dragon Scale Plate", Rarity::Epic, 12.0, 300, 20.0, Enchantment::Fire));
-	
 	hero_items.push_back(std::make_unique<Potion>("Potion of Vitality", Rarity::Rare, 0.5, 50, 25.0, Enchantment::Holy));
 	hero_items.push_back(std::make_unique<Potion>("Toxic Concoction", Rarity::Rare, 0.5, 45, 15.0, Enchantment::Poison));
-
 
 	std::vector<std::unique_ptr<Item>> villain_items;
 	villain_items.push_back(std::make_unique<Weapon>("Shadow Dagger", Rarity::Rare, 2.0, 180, 22.0, Enchantment::Shadow));

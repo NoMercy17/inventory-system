@@ -1,0 +1,2 @@
+# Name, speed, health, attack, defense
+Heroic Knight, 20, 100.0, 15.0, 5.0
