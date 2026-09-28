@@ -10,6 +10,7 @@ public:
 	void equip(Character& wielder) override;
 	std::string describe() const override;
 	ItemType type() const override { return ItemType::Potion; }
+	bool isConsumable() const override { return true; }
 	bool operator==(const Item& other) const override;
 
 	Potion operator+(const Potion& other) const;

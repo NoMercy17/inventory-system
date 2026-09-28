@@ -54,17 +54,15 @@ void Weapon::use(Character& target)
 
 void Weapon::equip(Character& wielder)
 {
-	BuffStats buff = getEnchantmentBuff(m_enchantment_);
+	if (!wielder.equipWeapon(this))
+	{
+		return;
+	}
 
 	std::cout << wielder.getName() << " equips " << m_name_;                                                                                                               
-        if (m_enchantment_ != Enchantment::None)                                                                                                                               
-        {                                                                                                                                                                      
-            std::cout << " [" << enchantmentToString(m_enchantment_) << "]";                                                                                                   
-        }                                                                                                                                                                      
-    std::cout << std::endl; 
-
-	wielder.equipWeapon(this);
-	if(buff.healthBonus != 0.0)
-		wielder.buffHealth(buff.healthBonus); // because hp handled as being permanent
-
+	if (m_enchantment_ != Enchantment::None)                                                                                                                               
+	{                                                                                                                                                                      
+		std::cout << " [" << enchantmentToString(m_enchantment_) << "]";                                                                                                   
+	}                                                                                                                                                                      
+	std::cout << std::endl; 
 }

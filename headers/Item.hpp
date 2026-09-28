@@ -14,12 +14,14 @@ public:
 	virtual void equip(Character& wielder) = 0;
 	virtual std::string describe() const = 0;
 	virtual ItemType type() const = 0;
+	virtual bool isConsumable() const { return false; }
 
 	virtual bool operator==(const Item& other) const;
 	bool operator!=(const Item& other) const;
 
 	friend std::ostream& operator<<(std::ostream& os, const Item& item);
 
+	const std::string& getName() const { return m_name_; }
 	const std::string& getNameRef() const { return m_name_; }
 	Rarity getRarity() const { return m_rarity_; }
 	double getWeight() const { return m_weight_; }

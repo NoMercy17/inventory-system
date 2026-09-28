@@ -33,7 +33,7 @@ bool Armor::operator==(const Item& other) const
 }
 
 
-// atm no clear offensive use for armor
+// no offensive use for armor
 void Armor::use(Character& /*target*/) 
 {}
 
@@ -42,17 +42,16 @@ void Armor::equip(Character& wielder)
     BuffStats buff = getEnchantmentBuff(m_enchantment_);
     double totalDefense = m_defense_ + buff.defenseBonus;
 
-    std::cout << "Equipping armor " << m_name_ << " on himself"
+    if (!wielder.equipArmor(this))
+    {
+        return;
+    }
+
+    std::cout << wielder.getName() << " equips armor " << m_name_
         << ", providing " << totalDefense << " protection";
     if (m_enchantment_ != Enchantment::None)
     {
         std::cout << " [" << enchantmentToString(m_enchantment_) << " enchantment]";
     }
     std::cout << std::endl;
-
-    wielder.equipArmor(this);               
-    if (buff.healthBonus != 0.0)
-    {
-        wielder.buffHealth(buff.healthBonus);
-    }
 }
