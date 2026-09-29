@@ -49,14 +49,16 @@ public:
 	void printStats() const;
 	
 	private:
-	std::string m_name_;
-	double m_speed_;
-	double m_health_;
-	double m_baseAttack_;
-	double m_baseDefense_;
+	// nothing to change, 0 paddings
+	std::string m_name_; // 32 bytes
+	char* m_title_ = nullptr;// 8 bytes
 
-	std::array<Weapon*, MAX_NR_WEAPONS> m_equippedWeapons_ {nullptr, nullptr};
-	Armor* m_equippedArmor_ = nullptr;
+	double m_speed_; // 8 bytes
+	double m_health_; // 8 bytes
+	double m_baseAttack_; // 8 bytes
+	double m_baseDefense_; // 8 bytes
 
-	char* m_title_ = nullptr;
+	std::array<Weapon*, MAX_NR_WEAPONS> m_equippedWeapons_ {nullptr, nullptr}; // 16 bytes, 2 * 8 bytes
+	Armor* m_equippedArmor_ = nullptr; // 8 bytes
+
 };

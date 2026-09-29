@@ -37,7 +37,7 @@ int main()
 	Character villain = DataLoader::getInstance().loadCharacter("data/villain.txt");
 
 	// dumb pointer usage
-	hero.setTitle("The Good guy");
+	hero.setTitle("The Good Guy");
 	villain.setTitle("The Bad Guy");
 
 	

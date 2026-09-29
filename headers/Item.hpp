@@ -27,11 +27,14 @@ public:
 	double getWeight() const { return m_weight_; }
 	int getPrice() const { return m_price_; }
 
+
 protected:
-	std::string m_name_;
-	Rarity m_rarity_;
-	double m_weight_;
-	int m_price_;
+	// Memory efficient order
+	std::string m_name_; // 32 bytes
+	double m_weight_; // 8 bytes
+	int m_price_; // 4 bytes 
+	Rarity m_rarity_; // 1 byte, +3 padding
+
 };
 
 

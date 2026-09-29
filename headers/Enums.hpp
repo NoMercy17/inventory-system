@@ -1,11 +1,13 @@
 #pragma once
 #include <string>
 
-enum class Rarity { Common, Uncommon, Rare, Epic };
+// we alter from the default of using the int = 4 bytes to each enum to 1 byte
 
-enum class ItemType { Weapon, Potion, Armor };
+enum class Rarity: u_int8_t { Common, Uncommon, Rare, Epic };
 
-enum class Enchantment { None, Fire, Frost, Lightning, Holy, Shadow, Poison };
+enum class ItemType: u_int8_t { Weapon, Potion, Armor };
+
+enum class Enchantment: u_int8_t { None, Fire, Frost, Lightning, Holy, Shadow, Poison };
 
 
 struct BuffStats

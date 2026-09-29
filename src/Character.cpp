@@ -11,13 +11,13 @@ Character::~Character()
 
 Character::Character(const Character& rhs)
     : m_name_(rhs.m_name_),
-          m_speed_(rhs.m_speed_),
-          m_health_(rhs.m_health_),
-          m_baseAttack_(rhs.m_baseAttack_),
-          m_baseDefense_(rhs.m_baseDefense_),
-          m_equippedWeapons_(rhs.m_equippedWeapons_),
-          m_equippedArmor_(rhs.m_equippedArmor_),
-          m_title_(nullptr)
+      m_title_(nullptr),
+      m_speed_(rhs.m_speed_),
+      m_health_(rhs.m_health_),
+      m_baseAttack_(rhs.m_baseAttack_),
+      m_baseDefense_(rhs.m_baseDefense_),
+      m_equippedWeapons_(rhs.m_equippedWeapons_),
+      m_equippedArmor_(rhs.m_equippedArmor_)
 {
     if(rhs.m_title_ != nullptr)
     {
@@ -58,13 +58,13 @@ Character& Character:: operator=(const Character& rhs)
 
 Character::Character(Character&& rhs) noexcept
     : m_name_(std::move(rhs.m_name_)), 
+      m_title_(rhs.m_title_),
       m_speed_(rhs.m_speed_),                                                                                                                                                                                 
       m_health_(rhs.m_health_),                                                                                                                                                                               
       m_baseAttack_(rhs.m_baseAttack_),                                                                                                                                                                       
       m_baseDefense_(rhs.m_baseDefense_),                                                                                                                                                                     
       m_equippedWeapons_(rhs.m_equippedWeapons_),                                                                                                                                                             
-      m_equippedArmor_(rhs.m_equippedArmor_), 
-      m_title_(rhs.m_title_)
+      m_equippedArmor_(rhs.m_equippedArmor_)
 {
     rhs.m_title_ = nullptr;
 }
@@ -77,12 +77,13 @@ Character& Character::operator=(Character&& rhs) noexcept
     delete[] m_title_;
 
     m_name_ = std::move(rhs.m_name_);
+    m_title_ = rhs.m_title_;
     m_speed_ = rhs.m_speed_;
     m_health_ = rhs.m_health_;
     m_baseAttack_ = rhs.m_baseAttack_;
     m_baseDefense_ = rhs.m_baseDefense_;
     m_equippedWeapons_ = rhs.m_equippedWeapons_;
-    m_title_ = rhs.m_title_;
+    m_equippedArmor_ = rhs.m_equippedArmor_;
     
     rhs.m_title_ = nullptr;
     return *this;
