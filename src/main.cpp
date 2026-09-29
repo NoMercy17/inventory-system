@@ -36,6 +36,11 @@ int main()
 	Character hero = DataLoader::getInstance().loadCharacter("data/hero.txt");
 	Character villain = DataLoader::getInstance().loadCharacter("data/villain.txt");
 
+	// dumb pointer usage
+	hero.setTitle("The Good guy");
+	villain.setTitle("The Bad Guy");
+
+	
 	std::cout << "=== Initial Characters ===" << std::endl;
 	hero.printStats();
 	villain.printStats();

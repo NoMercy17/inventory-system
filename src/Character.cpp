@@ -2,6 +2,107 @@
 #include "Character.hpp"
 #include "Armor.hpp"
 #include "Weapon.hpp"
+#include <cstring>
+
+Character::~Character()
+{
+    delete[] m_title_;
+}
+
+Character::Character(const Character& rhs)
+    : m_name_(rhs.m_name_),
+          m_speed_(rhs.m_speed_),
+          m_health_(rhs.m_health_),
+          m_baseAttack_(rhs.m_baseAttack_),
+          m_baseDefense_(rhs.m_baseDefense_),
+          m_equippedWeapons_(rhs.m_equippedWeapons_),
+          m_equippedArmor_(rhs.m_equippedArmor_),
+          m_title_(nullptr)
+{
+    if(rhs.m_title_ != nullptr)
+    {
+        size_t len = std::strlen(rhs.m_title_);
+        m_title_ = new char[len + 1];
+        std::strcpy(m_title_, rhs.m_title_);
+    }
+}
+
+Character& Character:: operator=(const Character& rhs)
+{   // self-assignment guard
+    if(this == &rhs)
+        return *this;
+
+    delete[] m_title_;
+    m_title_ = nullptr;
+
+
+    if(rhs.m_title_ != nullptr)
+    {
+        size_t len = std::strlen(rhs.m_title_);
+        m_title_ = new char[len + 1];
+        std::strcpy(m_title_, rhs.m_title_);
+    }
+
+
+    m_name_ = rhs.m_name_;
+    m_speed_ = rhs.m_speed_;
+    m_health_ = rhs.m_health_;
+    m_baseAttack_ = rhs.m_baseAttack_;
+    m_baseDefense_ = rhs.m_baseDefense_;
+    m_equippedWeapons_ = rhs.m_equippedWeapons_;
+    m_equippedArmor_ = rhs.m_equippedArmor_;
+
+    return *this;
+}
+
+
+Character::Character(Character&& rhs) noexcept
+    : m_name_(std::move(rhs.m_name_)), 
+      m_speed_(rhs.m_speed_),                                                                                                                                                                                 
+      m_health_(rhs.m_health_),                                                                                                                                                                               
+      m_baseAttack_(rhs.m_baseAttack_),                                                                                                                                                                       
+      m_baseDefense_(rhs.m_baseDefense_),                                                                                                                                                                     
+      m_equippedWeapons_(rhs.m_equippedWeapons_),                                                                                                                                                             
+      m_equippedArmor_(rhs.m_equippedArmor_), 
+      m_title_(rhs.m_title_)
+{
+    rhs.m_title_ = nullptr;
+}
+
+Character& Character::operator=(Character&& rhs) noexcept
+{
+    if(this == &rhs)
+        return *this;
+
+    delete[] m_title_;
+
+    m_name_ = std::move(rhs.m_name_);
+    m_speed_ = rhs.m_speed_;
+    m_health_ = rhs.m_health_;
+    m_baseAttack_ = rhs.m_baseAttack_;
+    m_baseDefense_ = rhs.m_baseDefense_;
+    m_equippedWeapons_ = rhs.m_equippedWeapons_;
+    m_title_ = rhs.m_title_;
+    
+    rhs.m_title_ = nullptr;
+    return *this;
+}
+
+
+void Character::setTitle(const char* title)
+{
+    delete[] m_title_;
+    m_title_ = nullptr;
+
+    if(title != nullptr)
+    {
+        size_t len = std::strlen(title);
+        m_title_ = new char[len + 1];
+        std::strcpy(m_title_, title);
+    }
+
+}
+
 
 void Character::heal(double amount) 
 { 
@@ -152,7 +253,14 @@ void Character::unequipArmor() { m_equippedArmor_ = nullptr; }
 
 void Character::printStats() const
 {
-    std::cout << m_name_ << " — HP: " << m_health_
-        << " | ATK: " << getAttack()
-        << " | DEF: " << getDefense() << std::endl;
+    std::cout << m_name_;
+    if (m_title_)
+    {
+        std::cout << " (\"" << m_title_ << "\")";
+    }
+        std::cout << " — HP: " << m_health_
+                  << " | ATK: " << getAttack()
+                  << " | DEF: " << getDefense() << std::endl;
 }
+                
+                  
