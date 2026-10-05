@@ -15,16 +15,18 @@ set(SOURCES
     src/Item.cpp
     src/Potion.cpp
     src/Weapon.cpp
+    src/Helpers.cpp
     src/main.cpp
-)
-
-# Header files (explicitly listed so they appear in IDE Solution Explorers)
-set(HEADERS
+    )
+    
+    # Header files (explicitly listed so they appear in IDE Solution Explorers)
+    set(HEADERS
     headers/Armor.hpp
     headers/Character.hpp
     headers/DataLoader.hpp
     headers/Enums.hpp
     headers/Item.hpp
+    headers/Helpers.hpp
     headers/Potion.hpp
     headers/Weapon.hpp
 )
