@@ -1,13 +1,24 @@
 #pragma once
 #include <string>
+#include <cstdint> // uint8_t
 
 // we alter from the default of using the int = 4 bytes to each enum to 1 byte
+enum class Rarity: uint8_t { Common, Uncommon, Rare, Epic };
 
-enum class Rarity: u_int8_t { Common, Uncommon, Rare, Epic };
+// check that our assertion brings the problem to compile time
+//enum class Rarity: uint32_t { Common, Uncommon, Rare, Epic };
 
-enum class ItemType: u_int8_t { Weapon, Potion, Armor };
+enum class ItemType: uint8_t { Weapon, Potion, Armor };
 
-enum class Enchantment: u_int8_t { None, Fire, Frost, Lightning, Holy, Shadow, Poison };
+enum class Enchantment: uint8_t { None, Fire, Frost, Lightning, Holy, Shadow, Poison };
+
+
+
+// guards
+static_assert(sizeof(Rarity) == 1, "Rarity must occupy exactly 1 byte!");
+static_assert(sizeof(ItemType) == 1, "ItemType must occupy exactly 1 byte!");
+static_assert(sizeof(Enchantment) == 1, "Enchantment must occupy exactly 1 byte!");
+
 
 
 struct BuffStats

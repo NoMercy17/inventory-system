@@ -41,7 +41,11 @@ target_include_directories(inventory-system PRIVATE headers)
 if (MSVC)
     target_compile_options(inventory-system PRIVATE /W4 /permissive-)
 else()
-    target_compile_options(inventory-system PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(inventory-system PRIVATE 
+            -Wall -Wextra -Wpedantic
+            -fdiagnostics-color=always     # 1. Keeps colors on even inside IDE/make
+            -fno-diagnostics-show-caret    # (Optional) removes the ascii-art arrow if you want fewer lines
+        )
 endif()
 
 # Visual Studio IDE configuration

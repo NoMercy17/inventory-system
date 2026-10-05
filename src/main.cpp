@@ -43,8 +43,8 @@ int main()
 	villain_items.push_back(std::make_unique<Potion>("Vile Poison Flask", Rarity::Rare, 0.5, 40, 12.0, Enchantment::Poison));
 
 
-
-	// Problem if we reorder or we access an invalid index!
+	// OLD WAY
+	// Problem if we reorder or we access an invalid index! 
 	// std::cout << "=== Equipping Gear ===" << std::endl;
 	// hero_items[0]->equip(hero); // Slot 1: Iron Sword
 	// hero_items[1]->equip(hero); // Slot 2: Sunpiercer
@@ -58,11 +58,9 @@ int main()
 	if(auto* armor = findItem<Armor>(hero_items, "Shield of Tinos"))
 		armor->equip(hero);
 
-
-	// std::cout << "---" << std::endl;
-	// villain_items[0]->equip(villain); // Slot 1: Shadow Dagger
-	// villain_items[1]->equip(villain); // Armor: Night Cloak
-	// std::cout << std::endl;
+		
+	// check that our assertion brings the problem to compile time
+	// findItem<Character>(hero_items);  
 
 
 	if(auto* sword = findItem<Weapon>(villain_items, "Shadow Dagger"))

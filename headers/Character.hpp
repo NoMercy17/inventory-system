@@ -14,7 +14,7 @@ public:
 	// Rule of 5 because of the m_title_ pointer
 	explicit Character(std::string name, double speed = 20, double health = 100.0, double attack = 10.0, double defense = 5.0)
 		: m_name_(std::move(name)), m_speed_(speed), m_health_(health), m_baseAttack_(attack), m_baseDefense_(defense) {}
-
+	
 	~Character();
 	Character(const Character& rhs);
 	Character& operator=(const Character& rhs);
