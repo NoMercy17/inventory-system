@@ -11,13 +11,21 @@
 #include "Character.hpp"
 #include "DataLoader.hpp"
 
+#include <Timer.hpp>
 
 int main() 
-{
-	// Load characters from single-line files via DataLoader Singleton
-	Character hero = DataLoader::getInstance().loadCharacter("data/hero.txt");
-	Character villain = DataLoader::getInstance().loadCharacter("data/villain.txt");
+{	
+	Character hero{"", 0, 0, 0, 0};
+	Character villain{"", 0, 0, 0, 0};
 
+	{
+		SystemTimer timer {"DISK ACCESS & STRING PARSING"};
+		// Load characters from single-line files via DataLoader Singleton
+		hero = DataLoader::getInstance().loadCharacter("data/hero.txt");
+		villain = DataLoader::getInstance().loadCharacter("data/villain.txt");
+		
+	}
+	
 	// dumb pointer usage
 	hero.setTitle("The Good Guy");
 	villain.setTitle("The Bad Guy");
@@ -26,47 +34,55 @@ int main()
 	std::cout << "=== Initial Characters ===" << std::endl;
 	hero.printStats();
 	villain.printStats();
-	std::cout << std::endl;
 
+	// their backpack!
 	std::vector<std::unique_ptr<Item>> hero_items;
-	hero_items.push_back(std::make_unique<Weapon>("Iron Sword", Rarity::Common, 5.0, 100, 20.0));
-	hero_items.push_back(std::make_unique<Weapon>("Sunpiercer", Rarity::Epic, 3.5, 350, 30.0, Enchantment::Fire));
-	hero_items.push_back(std::make_unique<Weapon>("BattleCry Axe", Rarity::Epic, 6.0, 200, 25.0, Enchantment::Lightning));
-	hero_items.push_back(std::make_unique<Armor>("Shield of Tinos", Rarity::Uncommon, 7.0, 150, 10.0, Enchantment::Holy));
-	hero_items.push_back(std::make_unique<Armor>("Dragon Scale Plate", Rarity::Epic, 12.0, 300, 20.0, Enchantment::Fire));
-	hero_items.push_back(std::make_unique<Potion>("Potion of Vitality", Rarity::Rare, 0.5, 50, 25.0, Enchantment::Holy));
-	hero_items.push_back(std::make_unique<Potion>("Toxic Concoction", Rarity::Rare, 0.5, 45, 15.0, Enchantment::Poison));
-
 	std::vector<std::unique_ptr<Item>> villain_items;
-	villain_items.push_back(std::make_unique<Weapon>("Shadow Dagger", Rarity::Rare, 2.0, 180, 22.0, Enchantment::Shadow));
-	villain_items.push_back(std::make_unique<Armor>("Night Cloak", Rarity::Rare, 3.0, 120, 8.0, Enchantment::Shadow));
-	villain_items.push_back(std::make_unique<Potion>("Vile Poison Flask", Rarity::Rare, 0.5, 40, 12.0, Enchantment::Poison));
 
+	// testing the time it takes to add them
+	{
+		SystemTimer timer{"RUNTIME COST OF DYNAMIC ALLOCATION"};
+		hero_items.push_back(std::make_unique<Weapon>("Iron Sword", Rarity::Common, 5.0, 100, 20.0));
+		hero_items.push_back(std::make_unique<Weapon>("Sunpiercer", Rarity::Epic, 3.5, 350, 30.0, Enchantment::Fire));
+		hero_items.push_back(std::make_unique<Weapon>("BattleCry Axe", Rarity::Epic, 6.0, 200, 25.0, Enchantment::Lightning));
+		hero_items.push_back(std::make_unique<Armor>("Shield of Tinos", Rarity::Uncommon, 7.0, 150, 10.0, Enchantment::Holy));
+		hero_items.push_back(std::make_unique<Armor>("Dragon Scale Plate", Rarity::Epic, 12.0, 300, 20.0, Enchantment::Fire));
+		hero_items.push_back(std::make_unique<Potion>("Potion of Vitality", Rarity::Rare, 0.5, 50, 25.0, Enchantment::Holy));
+		hero_items.push_back(std::make_unique<Potion>("Toxic Concoction", Rarity::Rare, 0.5, 45, 15.0, Enchantment::Poison));
 
+		
+		villain_items.push_back(std::make_unique<Weapon>("Shadow Dagger", Rarity::Rare, 2.0, 180, 22.0, Enchantment::Shadow));
+		villain_items.push_back(std::make_unique<Armor>("Night Cloak", Rarity::Rare, 3.0, 120, 8.0, Enchantment::Shadow));
+		villain_items.push_back(std::make_unique<Potion>("Vile Poison Flask", Rarity::Rare, 0.5, 40, 12.0, Enchantment::Poison));
+	}
+
+	
+	
 	// OLD WAY
 	// Problem if we reorder or we access an invalid index! 
 	// std::cout << "=== Equipping Gear ===" << std::endl;
 	// hero_items[0]->equip(hero); // Slot 1: Iron Sword
 	// hero_items[1]->equip(hero); // Slot 2: Sunpiercer
 	// hero_items[3]->equip(hero); // Armor: Shield of Tinos
+	
+	{
+		SystemTimer timer{"TEMPLATE AND DYNAMIC_CAST LOOKUP MEASUREMENT"};
+		// Equipping Phase Improved
+		if(auto* sword = findItem<Weapon>(hero_items, "Iron Sword"))
+			sword->equip(hero);
+		if(auto* sword = findItem<Weapon>(hero_items, "Sunpiercer"))
+			sword->equip(hero);
+		if(auto* armor = findItem<Armor>(hero_items, "Shield of Tinos"))
+			armor->equip(hero);
 
-	// Equipping Phase Improved
-	if(auto* sword = findItem<Weapon>(hero_items, "Iron Sword"))
-		sword->equip(hero);
-	if(auto* sword = findItem<Weapon>(hero_items, "Sunpiercer"))
-		sword->equip(hero);
-	if(auto* armor = findItem<Armor>(hero_items, "Shield of Tinos"))
-		armor->equip(hero);
-
+		if(auto* sword = findItem<Weapon>(villain_items, "Shadow Dagger"))
+			sword->equip(villain);
+		if(auto* armor = findItem<Armor>(villain_items))
+			armor->equip(villain);
+	}
 		
 	// check that our assertion brings the problem to compile time
 	// findItem<Character>(hero_items);  
-
-
-	if(auto* sword = findItem<Weapon>(villain_items, "Shadow Dagger"))
-		sword->equip(villain);
-	if(auto* armor = findItem<Armor>(villain_items))
-		armor->equip(villain);
 
 
 	std::cout << "=== Stats After Equipping ===" << std::endl;
