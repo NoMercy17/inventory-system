@@ -21,8 +21,8 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, const Item& item);
 
-	const std::string& getName() const { return m_name_; }
-	const std::string& getNameRef() const { return m_name_; }
+	// we can modify from std::string& to string_view since we just print/compare the names, we do not rly work with them
+	std::string_view getName() const noexcept { return m_name_; }
 	Rarity getRarity() const { return m_rarity_; }
 	double getWeight() const { return m_weight_; }
 	int getPrice() const { return m_price_; }

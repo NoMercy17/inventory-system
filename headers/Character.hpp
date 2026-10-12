@@ -24,7 +24,8 @@ public:
 	const char* getTitle() const { return m_title_; }
 	void setTitle(const char* title);
 
-	const std::string& getName() const { return m_name_; }
+	// we can modify from std::string& to string_view since we just print/compare the names, we do not rly work with them
+	std::string_view getName() const noexcept { return m_name_; }
 	double getHealth() const { return m_health_; }
 	double getAttack() const;
 	double getDefense() const;

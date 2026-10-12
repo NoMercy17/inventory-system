@@ -12,8 +12,9 @@ class Character;
 void dropItem(Character& character, std::vector<std::unique_ptr<Item>>& inventory, Item* itemToRemove);
 
 
+// we modified to string_view since it accepts string literals without any allocations and overhead
 template<typename TargetItem>
-TargetItem* findItem(const std::vector<std::unique_ptr<Item>>& inventory, const std::string& name = "")
+TargetItem* findItem(const std::vector<std::unique_ptr<Item>>& inventory, std::string_view name = {})
 {
 	// guard for incorrect use of the findItem function
 	static_assert(std::is_base_of<Item, TargetItem>::value, "The items from the vector must be derived from Item (Weapon, Armor, Potion)");
