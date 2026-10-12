@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
+#include <thread>
 
 #include "Helpers.hpp"
 #include "Item.hpp"
@@ -15,6 +16,28 @@
 
 int main() 
 {	
+    using namespace std::chrono_literals;                                                                                                                                             
+	// Rudimentary GameClock testing
+
+	std::cout << "\n=== Real-time Combat Simulation ===" << std::endl;                                                                                                                
+    GameClock gameClock;                                                                                                                                                              
+                                                                                                                                                                                      
+    {                                                                                                                                                                                 
+        SystemTimer combatTimer{"TOTAL COMBAT DURATION (WALL TIME)"};                                                                                                                 
+                                                                                                                                                                                      
+        // Simulate 3 ticks/turns                                                                                                                                                     
+        for (int turn = 1; turn <= 3; ++turn) {                                                                                                                                       
+            // Sleep to simulate frame/turn delay                                                                                                                                     
+            std::this_thread::sleep_for(100ms);                                                                                                                                       
+                                                                                                                                                                                      
+            gameClock.tick();                                                                                                                                                         
+            std::cout << "Turn " << turn                                                                                                                                              
+                      << " | Delta: " << gameClock.getDeltaTime() << "s"                                                                                                              
+                      << " | Total Game Time: " << gameClock.getTotalTime() << "s\n";                                                                                                 
+        }                                                                                                                                                                             
+    }  
+
+
 	Character hero{"", 0, 0, 0, 0};
 	Character villain{"", 0, 0, 0, 0};
 
