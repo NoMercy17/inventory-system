@@ -1,8 +1,9 @@
 #include <iostream>
+#include <span>
 #include "Character.hpp"
+#include <cstring>
 #include "Armor.hpp"
 #include "Weapon.hpp"
-#include <cstring>
 
 Character::~Character()
 {

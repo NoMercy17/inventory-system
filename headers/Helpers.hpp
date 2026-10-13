@@ -4,6 +4,7 @@
 #include <string>
 #include <type_traits>
 #include <cassert>
+#include <span>
 
 class Item;
 class Character;
@@ -14,7 +15,7 @@ void dropItem(Character& character, std::vector<std::unique_ptr<Item>>& inventor
 
 // we modified to string_view since it accepts string literals without any allocations and overhead
 template<typename TargetItem>
-TargetItem* findItem(const std::vector<std::unique_ptr<Item>>& inventory, std::string_view name = {})
+TargetItem* findItem(std::span<const std::unique_ptr<Item>> inventory, std::string_view name = {})
 {
 	// guard for incorrect use of the findItem function
 	static_assert(std::is_base_of<Item, TargetItem>::value, "The items from the vector must be derived from Item (Weapon, Armor, Potion)");
@@ -31,4 +32,4 @@ TargetItem* findItem(const std::vector<std::unique_ptr<Item>>& inventory, std::s
 		}
 	}
 	return nullptr;
-}
+};

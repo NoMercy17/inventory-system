@@ -3,6 +3,7 @@
 #include <memory>
 #include <algorithm>
 #include <thread>
+#include <span>
 
 #include "Helpers.hpp"
 #include "Item.hpp"
@@ -91,6 +92,7 @@ int main()
 	{
 		SystemTimer timer{"TEMPLATE AND DYNAMIC_CAST LOOKUP MEASUREMENT"};
 		// Equipping Phase Improved
+		// added the findItem to have a span instead of paasing the direct vector
 		if(auto* sword = findItem<Weapon>(hero_items, "Iron Sword"))
 			sword->equip(hero);
 		if(auto* sword = findItem<Weapon>(hero_items, "Sunpiercer"))
