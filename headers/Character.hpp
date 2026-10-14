@@ -2,6 +2,8 @@
 #include <string>
 #include <iostream>
 #include <array>
+#include <vector>
+#include "Enums.hpp"
 
 class Weapon;
 class Armor;
@@ -10,6 +12,9 @@ class Character
 {
 public:
 	static constexpr size_t MAX_NR_WEAPONS {2};
+
+	friend std::ostream& operator<<(std::ostream& os, const Character& character);
+
 
 	// Rule of 5 because of the m_title_ pointer
 	explicit Character(std::string name, double speed = 20, double health = 100.0, double attack = 10.0, double defense = 5.0)
@@ -21,21 +26,29 @@ public:
 	Character(Character&& rhs) noexcept;
 	Character& operator=(Character&& rhs) noexcept;
 
-	const char* getTitle() const { return m_title_; }
+	// [Unused speculative getters]
+	// const char* getTitle() const { return m_title_; }
 	void setTitle(const char* title);
 
 	// we can modify from std::string& to string_view since we just print/compare the names, we do not rly work with them
 	std::string_view getName() const noexcept { return m_name_; }
-	double getHealth() const { return m_health_; }
+	// [Unused speculative getters]
+	// double getHealth() const { return m_health_; }
 	double getAttack() const;
 	double getDefense() const;
-	double getSpeed() const { return m_speed_; }
-	Weapon* getEquippedWeapon(size_t slot = 0) const;
+	// double getSpeed() const { return m_speed_; }
+	// Weapon* getEquippedWeapon(size_t slot = 0) const;
+
 	const std::array<Weapon*, MAX_NR_WEAPONS>& getEquippedWeapons() const;
 	Armor* getEquippedArmor() const { return m_equippedArmor_; }
 
 	void heal(double amount);
 	void takeDamage(double amount);
+
+	// Over-Time Effect Management
+	void applyEffect(const StatusEffect& effect);
+	void update(double dt);
+	bool hasActiveEffects() const noexcept { return !m_activeEffects_.empty(); }
 
 	void buffAttack(double amount); // permanently raises the Base stat
 	void buffDefense(double amount); // permanently raises the Base stat
@@ -49,10 +62,10 @@ public:
 
 	void printStats() const;
 	
-	private:
-	// nothing to change, 0 paddings
+private:
+	// 0 padding preserved
 	std::string m_name_; // 32 bytes
-	char* m_title_ = nullptr;// 8 bytes
+	char* m_title_ = nullptr; // 8 bytes
 
 	double m_speed_; // 8 bytes
 	double m_health_; // 8 bytes
@@ -61,5 +74,7 @@ public:
 
 	std::array<Weapon*, MAX_NR_WEAPONS> m_equippedWeapons_ {nullptr, nullptr}; // 16 bytes, 2 * 8 bytes
 	Armor* m_equippedArmor_ = nullptr; // 8 bytes
-
+	std::vector<StatusEffect> m_activeEffects_; // 24 bytes (3 * 8 bytes pointers)
 };
+
+std::ostream& operator<<(std::ostream& os, const Character& character);

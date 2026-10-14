@@ -23,10 +23,10 @@ public:
 
 	// we can modify from std::string& to string_view since we just print/compare the names, we do not rly work with them
 	std::string_view getName() const noexcept { return m_name_; }
-	Rarity getRarity() const { return m_rarity_; }
-	double getWeight() const { return m_weight_; }
-	int getPrice() const { return m_price_; }
-
+	// [Unused speculative getters]
+	// Rarity getRarity() const { return m_rarity_; }
+	// double getWeight() const { return m_weight_; }
+	// int getPrice() const { return m_price_; }
 
 protected:
 	// Memory efficient order
@@ -36,5 +36,7 @@ protected:
 	Rarity m_rarity_; // 1 byte, +3 padding
 
 };
+
+std::ostream& operator<<(std::ostream& os, const Item& item);
 
 

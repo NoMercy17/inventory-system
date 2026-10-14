@@ -80,6 +80,32 @@ void Potion::use(Character& target)
 	if (debuff.healthBonus != 0.0) target.buffHealth(-std::abs(debuff.healthBonus));
 	if (debuff.attackBonus != 0.0) target.buffAttack(-std::abs(debuff.attackBonus));
 	if (debuff.defenseBonus != 0.0) target.buffDefense(-std::abs(debuff.defenseBonus));
+
+	// Trigger Damage Over Time (DoT) based on enchantment
+	if (m_enchantment_ == Enchantment::Poison)
+	{
+		target.applyEffect(StatusEffect{
+			.name = "Poison",
+			.type = EffectType::DamageOverTime,
+			.totalDuration = 3.0,
+			.remainingDuration = 3.0,
+			.tickInterval = 1.0,
+			.timeUntilNextTick = 1.0,
+			.amountPerTick = 4.0
+		});
+	}
+	else if (m_enchantment_ == Enchantment::Fire)
+	{
+		target.applyEffect(StatusEffect{
+			.name = "Burn",
+			.type = EffectType::DamageOverTime,
+			.totalDuration = 2.0,
+			.remainingDuration = 2.0,
+			.tickInterval = 0.5,
+			.timeUntilNextTick = 0.5,
+			.amountPerTick = 5.0
+		});
+	}
 }
 
 void Potion::equip(Character& wielder)
@@ -98,4 +124,18 @@ void Potion::equip(Character& wielder)
 	if (buff.healthBonus != 0.0) wielder.buffHealth(buff.healthBonus);
 	if (buff.attackBonus != 0.0) wielder.buffAttack(buff.attackBonus);
 	if (buff.defenseBonus != 0.0) wielder.buffDefense(buff.defenseBonus);
+
+	// Trigger Healing Over Time (HoT) based on enchantment
+	if (m_enchantment_ == Enchantment::Holy)
+	{
+		wielder.applyEffect(StatusEffect{
+			.name = "Holy Regeneration",
+			.type = EffectType::HealOverTime,
+			.totalDuration = 3.0,
+			.remainingDuration = 3.0,
+			.tickInterval = 1.0,
+			.timeUntilNextTick = 1.0,
+			.amountPerTick = 6.0
+		});
+	}
 }

@@ -1,3 +1,4 @@
+
 #pragma once
 #include <string>
 #include <cstdint> // uint8_t
@@ -12,13 +13,24 @@ enum class ItemType: uint8_t { Weapon, Potion, Armor };
 
 enum class Enchantment: uint8_t { None, Fire, Frost, Lightning, Holy, Shadow, Poison };
 
-
+enum class EffectType : uint8_t { DamageOverTime, HealOverTime };
 
 // guards
 static_assert(sizeof(Rarity) == 1, "Rarity must occupy exactly 1 byte!");
 static_assert(sizeof(ItemType) == 1, "ItemType must occupy exactly 1 byte!");
 static_assert(sizeof(Enchantment) == 1, "Enchantment must occupy exactly 1 byte!");
+static_assert(sizeof(EffectType) == 1, "EffectType must occupy exactly 1 byte!");
 
+
+struct StatusEffect{
+	std::string name;
+	EffectType type; 
+	double totalDuration;
+	double remainingDuration;
+	double tickInterval; // time between ticks
+	double timeUntilNextTick;
+	double amountPerTick;
+};
 
 
 struct BuffStats

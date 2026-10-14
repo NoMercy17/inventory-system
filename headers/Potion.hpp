@@ -15,7 +15,8 @@ public:
 
 	Potion operator+(const Potion& other) const;
 
-	double getHealingAmount() const { return m_healing_; }
+	// [Unused speculative getter]
+	// double getHealingAmount() const { return m_healing_; }
 	Enchantment getEnchantment() const { return m_enchantment_; }
 
 protected:
